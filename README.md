@@ -1,0 +1,235 @@
+# project-template
+
+### Name
+
+_Write your name here_
+
+### Introspection
+
+_Describe the challenges you faced and what you learned_
+
+### Resources
+
+_List the people and resources you used to complete the project_
+
+
+### *DO NOT EDIT BELOW THIS LINE*
+---
+
+## Goal
+
+The goals of this project are:
+
+* creating custom functions
+* using I/O to read files
+* creating language models! 
+
+## Description
+
+In this project, you will extend the tasks of processing text from the previous project to develop models for language. Language models help create a concise representation of text which helps in more complicated tasks such as classification! We will develop two language models - Bag of Words and TF-IDF.
+
+Following are the main tasks for the project:
+
+### `language_model.py`
+
+Create a new Python file that contains the necessary functions.
+
+### `preprocess_text`
+
+Create a function called `preprocess_text`. This function will take in a single argument called `text` which is of data type `string`. It will return a list of pre-processed string. After you take in a string, it should do the following steps:
+
+* convert all text into lowercase letters
+* remove punctuation
+* tokenize the words
+* remove stop words
+* (Extra Credit) - Use stemming and lemmatization to convert words into their root form.
+
+There is a file called `list_of_stop_words.txt` that you should use to remove them. (Hint: You can use the function from `helper.py` from the previous project to read the contents of `list_of_stop_words.txt`).
+
+
+```python
+>>> movie_review: str = "This was a fantastic movie. I loved it so much. It was a great time watching this movie"
+>>> preprocessed_text: list[str] = preprocess_text(movie_review)
+>>> print(preprocessed_text) # Without lemmatization/stemming
+['fantastic', 'movie', 'loved', 'great', 'time', 'watching', 'movie']
+# Assuming that the function preprocess_text also stems and lemmatizes each word
+>>> print(preprocessed_text) # With stemming/lemmatization
+['fantastic', 'movie', 'love', 'great', 'time', 'watch', 'movie']
+```
+
+### `get_unique_words`
+
+Create a function called `get_unique_words` that takes in a single argument called `preprocessed_review`, which is a `list` of `string` and returns a `set` of unique words in that review.
+
+```python
+>>> movie_review: str = "This was a fantastic movie. I loved it so much. It was a great time watching this movie"
+>>> preprocessed_text: list[str] = preprocess_text(movie_review) # Without lemmatization/stemming
+>>> unique_words: list[str] = get_unique_words(preprocessed_text)
+>>> print(unique_words)
+{'fantastic', 'movie', 'loved', 'great', 'time', 'watching'}
+```
+
+
+### `create_vocabulary`
+
+Create a function called `create_vocabulary` that takes in a single argument called `reviews` which is a `list` of `string`. The function returns a `set` of unique words in all the `reviews`. This function should call `preprocess_text` on each item in the `reviews` list and then call `get_unique_words` on its output. Each time it should update the set of words it gets from `get_unique_words`.
+
+```python
+>>> reviews: list[str] = [
+    "This was such an amazing movie",
+    "I am such a big fan of this movie, it is amazing",
+    "This was a horrible movie. Not recommended at all."
+]
+>>> vocabulary = create_vocabulary(reviews)
+>>> print(vocabulary)
+{'amazing', 'movie', 'big', 'fan', 'horrible', 'recommended'.}
+```
+
+### `calculate_term_frequency_for_each_review`
+
+Create a function called `calculate_term_frequency_for_each_review` which takes in a single argument - `preprocessed_review` which is a `list` of `string` and it returns a `dictionary`, where the `key` is the word in the `preprocessed_review` and the `value` is the word count. 
+
+```python
+>>> movie_review: str = "This was a horrible movie. Not recommended at all."
+>>> preprocessed_review: list[str] = preprocess_text(movie_review)
+>>> term_frequency: dict[str, int]  = calculate_term_frequency_for_each_review(preprocessed_review)
+>>> print(term_frequency)
+{'horrible': 1, 'movie': 1, 'recommended': 1}
+```
+
+### `calculate_term_frequency_for_corpus`
+
+Next, create a function called `calculate_term_frequency_for_corpus`. This function will take in a list of `preprocessed_reviews`, where each review is a `list` of `list` of `string`. It will return a `list` of `dictionaries`. Each `dictionary` represents the term frequency for one review, where the `key` is the word and the `value` is its frequency in that particular review.
+
+```python
+>>> reviews: list[str] = [
+    "This was a fantastic movie",
+    "I loved this movie so much",
+    "Fantastic time watching this movie!"
+]
+>>> preprocessed_reviews: list[list[str]] = [preprocess_text(review) for review in reviews]
+>>> tf_corpus = calculate_term_frequency_for_corpus(preprocessed_reviews)
+>>> print(tf_corpus)
+[
+  {'fantastic': 1, 'movie': 1},
+  {'loved': 1, 'movie': 1},
+  {'fantastic': 1, 'time': 1, 'watching': 1, 'movie': 1}
+]
+```
+
+### `calculate_inverse_document_frequency`
+
+Now, create the final function `calculate_tf_idf` that will compute the Term Frequency-Inverse Document Frequency (TF-IDF) score for each word in each review. This function will take in two arguments:
+
+* `term_frequencies`: A list of dictionaries containing a dictionary of word frequency from each review.
+* `vocabulary`: A set of unique words from the entire corpus.
+
+It will return a list of dictionaries, where each dictionary represents the TF-IDF scores for each word in a review.
+
+To compute the TF-IDF score, follow these steps:
+
+* For each word, calculate Term Frequency (TF) in each review.
+* Calculate the Inverse Document Frequency (IDF) for the word across all reviews:
+
+$$ IDF(𝑡) = log (𝑁 / df (𝑡)) $$
+
+where 𝑁 is the total number of reviews, and df(𝑡) is the number of reviews containing the word 𝑡
+
+* Multiply TF by IDF to get the TF-IDF score.
+
+```python
+>>> reviews = [
+    "This was a fantastic movie",
+    "I loved this movie so much",
+    "Fantastic time watching this movie!"
+]
+
+# Preprocess each review
+>>> preprocessed_reviews = [preprocess_text(review) for review in reviews]
+>>> print(preprocessed_reviews)
+[['fantastic', 'movie'], ['loved', 'movie'], ['fantastic', 'time', 'watching', 'movie']]
+
+# Calculate term frequencies for each review
+>>> term_frequencies = calculate_term_frequency_for_corpus(preprocessed_reviews)
+>>> print(term_frequencies)
+[
+  {'fantastic': 1, 'movie': 1},
+  {'loved': 1, 'movie': 1},
+  {'fantastic': 1, 'time': 1, 'watching': 1, 'movie': 1}
+]
+
+# Create the vocabulary from all reviews
+>>> vocabulary = create_vocabulary(reviews)
+>>> print(vocabulary)
+{'fantastic', 'movie', 'loved', 'time', 'watching'}
+
+# Calculate TF-IDF scores
+>>> tf_idf_corpus = calculate_tf_idf(term_frequencies, vocabulary)
+>>> for doc_tf_idf in tf_idf_corpus:
+...     print(doc_tf_idf)
+{'fantastic': 0.4055, 'movie': 0.0}
+{'loved': 1.0986, 'movie': 0.0}
+{'fantastic': 0.4055, 'time': 1.0986, 'watching': 1.0986, 'movie': 0.0}
+```
+
+## Rubric
+
+**1. Code Quality and Documentation** - **10 points**
+
+- **Code Readability and Organization**: *5 points*
+  - Meaningful variable and function names
+- **Comments and Docstrings**: *5 points*
+  - Clear explanations of functions and complex code sections
+  - Proper use of docstrings for all functions
+
+**2. Version Control Practice** - **10 points**
+
+- **Commit Numbers and Sizes**: *5 points*
+  - The commits are made at regular intervals and of coherent pieces 
+- **Commit Messages**: *5 points*
+  - Easy to follow along the commit history
+
+**2. Text Preprocessing (String Operations)** - **30 points**
+
+- **`preprocess_text` Function**: *20 points*
+  - Converts text to lowercase: *5 points*
+  - Removes punctuation: *5 points*
+  - Tokenizes words: *5 points*
+  - Removes stop words using `list_of_stop_words.txt`: *5 points*
+  - *(Extra Credit)* Stemming and Lemmatization: **(+5 points)**
+- **`get_unique_words` Function**: *5 points*
+  - Correctly returns a set of unique words
+- **`create_vocabulary` Function**: *5 points*
+  - Accurately compiles a vocabulary from all reviews
+
+**3. Term Frequency Calculations (Math Operations)** - **20 points**
+
+- **`calculate_term_frequency_for_each_review` Function**: *10 points*
+  - Correctly counts word frequencies in a review
+- **`calculate_term_frequency_for_corpus` Function**: *10 points*
+  - Accurately computes term frequencies for all reviews
+
+**4. TF-IDF Calculations** - **30 points**
+
+- **Inverse Document Frequency (IDF) Calculation**: *15 points*
+  - Correctly computes IDF for each word
+- **TF-IDF Score Computation**: *15 points*
+  - Accurately calculates TF-IDF scores for each word in each review
+
+**Total Points: 100**
+
+*Note:* The extra credit for stemming and lemmatization can add an additional **5 points**, potentially bringing the total to **95 points**. However, the base rubric sums up to **90 points**.
+
+
+## Tips On How To Excel
+
+
+* Start early!
+* Ask for help when stuck. Remember the 30 minute rule? No? Look into the syllabus.
+* Break down the problem into smaller tasks and try to implement them in Jupyter Notebook. Once implemented in the notebook successfully, transfer it into `.py` file.
+* Run the `.py` file to make sure the new addition did not break any changes.
+* After implementing each small task, commit changes.
+* Review the notebooks from classes available on GitHub if you cannot remember syntax for anything.
+* Run your code multiple times and vary the inputs to ensure it works as intended. 
+
+## Feedback
