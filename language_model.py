@@ -33,4 +33,15 @@ def calculate_term_frequency_for_each_review(preprocessed_review: list[str]) -> 
         term_frequency.update({each_item:preprocessed_review.count(each_item)})
     return term_frequency
 
+def calculate_term_frequency_for_corpus(preprocessed_reviews: list[list[str]]) -> list[dict[str,int]]:
+    tf_corpus: list[dict[str,int]] = []
+    for each_review in preprocessed_reviews:
+        term_frequency: dict[str,int] = {}
+        for each_item in each_review:
+            term_frequency.update({each_item : each_review.count(each_item)})
+        tf_corpus.append(term_frequency)
+    return tf_corpus 
+
+
+        
 
