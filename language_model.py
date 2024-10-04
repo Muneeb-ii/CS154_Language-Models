@@ -1,8 +1,5 @@
 from helper import get_file_contents
 
-
-
-
 list_of_stop_words: str = get_file_contents("list_of_stop_words.txt")
 characters_to_remove = ['!', ',', '.', '?', ':', ';', '-', '_']
 translation_table = str.maketrans('', '', ''.join(characters_to_remove))
@@ -23,3 +20,10 @@ def preprocess_text(text: str) -> str:
 def get_unique_words(text: list[str]) -> set[str]:
     text_unique: set[str] = set(text)
     return text_unique
+
+def create_vocabulary(reviews: list[str]) -> set[str]:
+    vocabulary: list[str] = []
+    for each_item in reviews:
+        vocabulary.extend(get_unique_words(preprocess_text(each_item)))
+    return set(vocabulary)
+
