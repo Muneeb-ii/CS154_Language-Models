@@ -27,3 +27,10 @@ def create_vocabulary(reviews: list[str]) -> set[str]:
         vocabulary.extend(get_unique_words(preprocess_text(each_item)))
     return set(vocabulary)
 
+def calculate_term_frequency_for_each_review(preprocessed_review: list[str]) -> dict[str,int]:
+    term_frequency: dict[str,int] = {}
+    for each_item in preprocessed_review:
+        term_frequency.update({each_item:preprocessed_review.count(each_item)})
+    return term_frequency
+
+
