@@ -8,13 +8,7 @@ def preprocess_text(text: str) -> str:
     text_lower: str  = text.lower()
     text_no_punctuation: str = text_lower.translate(translation_table)
     text_tokenized: list[str] = text_no_punctuation.split(" ")
-    text_no_stop_words: list[str]=[]
-
-    for each_word in text_tokenized:
-        if(each_word in list_of_stop_words):
-            pass
-        else:
-            text_no_stop_words.append(each_word)
+    text_no_stop_words: list[str]=[f for f in text_tokenized if f not in list_of_stop_words]
     return text_no_stop_words
 
 def get_unique_words(text: list[str]) -> set[str]:
@@ -43,5 +37,4 @@ def calculate_term_frequency_for_corpus(preprocessed_reviews: list[list[str]]) -
     return tf_corpus 
 
 
-        
 
