@@ -10,8 +10,9 @@ _Describe the challenges you faced and what you learned_
 
 ### Resources
 
-_List the people and resources you used to complete the project_
-
+1. https://www.datacamp.com/tutorial/stemming-lemmatization-python
+2. https://www.nltk.org
+3. https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 
 ### *DO NOT EDIT BELOW THIS LINE*
 ---
