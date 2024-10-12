@@ -1,5 +1,6 @@
 from helper import get_file_contents
 from nltk.stem import WordNetLemmatizer
+import math
 
 wnl = WordNetLemmatizer()
 
@@ -8,7 +9,7 @@ characters_to_remove = ["!", ",", ".", "?", ":", ";", "-", "_"]
 translation_table = str.maketrans("", "", "".join(characters_to_remove))
 
 
-def preprocess_text(text: str) -> set[str]:
+def preprocess_text(text: str) -> list[str]:
     text_lower: str = text.lower()
     text_no_punctuation: str = text_lower.translate(translation_table)
     text_tokenized: list[str] = text_no_punctuation.split(" ")
@@ -16,12 +17,7 @@ def preprocess_text(text: str) -> set[str]:
         f for f in text_tokenized if f not in list_of_stop_words
     ]
     text_stemmed: list[str] = [wnl.lemmatize(f, pos="v") for f in text_no_stop_words]
-    return set(text_stemmed)
-
-
-movie_review: str = "This was a fantastic movie. I loved it so much. It was a great time watching this movie"
-preprocessed_text: list[str] = preprocess_text(movie_review)
-print(preprocessed_text)
+    return text_stemmed
 
 
 def get_unique_words(text: list[str]) -> set[str]:
@@ -55,3 +51,24 @@ def calculate_term_frequency_for_corpus(
             term_frequency.update({each_item: each_review.count(each_item)})
         tf_corpus.append(term_frequency)
     return tf_corpus
+
+
+def calculate_tf_idf(term_frequencies: list[dict], vocabulary: set[str]) -> list[dict]:
+    tf_idf_corpus: list[dict] = []
+    for each_dict in term_frequencies:
+        doc_tf_idf: dict = {}
+        for each_key in each_dict.keys():
+            dft: int = 0
+            TF: int = each_dict.get(each_key)
+            i: int = 0
+            while i < len(term_frequencies):
+                if each_key in term_frequencies[i]:
+                    dft += 1
+                    i += 1
+                else:
+                    i += 1
+            doc_tf_idf.update(
+                {each_key: round(TF * math.log(len(term_frequencies) / dft), 4)}
+            )
+        tf_idf_corpus.append(doc_tf_idf)
+    return tf_idf_corpus
