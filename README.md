@@ -13,6 +13,7 @@ _Describe the challenges you faced and what you learned_
 1. https://www.datacamp.com/tutorial/stemming-lemmatization-python
 2. https://www.nltk.org
 3. https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
+4. https://www.w3schools.com/python/ref_dictionary_get.asp
 
 ### *DO NOT EDIT BELOW THIS LINE*
 ---
