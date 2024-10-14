@@ -6,7 +6,11 @@ Muneeb Azfar Nafees
 
 ### Introspection
 
-_Describe the challenges you faced and what you learned_
+1. **_Stemming and Lemmatization_**: 
+Performing stemming and lemmatization was one of the project's more challenging parts. Initially, I attempted to use stemming, but it produced unexpected results by stripping away essential parts of words, leading to distorted meanings. For instance, it removed suffixes and prefixes in an overly aggressive way, impacting the overall context of the words. This prompted me to switch to lemmatization, which, after experimentation, gave much better results as it preserved the base meaning of the words. Precisely, lemmatization could convert words to their root forms without drastically altering their meaning. It took some time to figure out which method to use and how to apply it correctly, especially since installing nltk and selecting the correct part-of-speech (POS) tags was initially unfamiliar. I found multiple resources online that helped guide me, such as tutorials and documentation from nltk, which greatly assisted me in learning how to use the WordNetLemmatizer. After running the preprocessed reviews through lemmatization, I was confident I had chosen the right approach for this task.
+
+2. **_TF-IDF Function_**: 
+The most challenging and time-consuming function to implement was the one responsible for calculating the TF-IDF (Term Frequency-Inverse Document Frequency) scores. The complexity lay in the data structure, as I had to process dictionaries within lists. This required iterating over every term in each review and calculating its frequency and inverse document frequency across all reviews. The challenge was developing the correct logic to ensure that the word counts and document frequencies were correctly calculated without missing anything. This involved debugging the logic multiple times and refining the loops and conditions to ensure accurate results. After several failed attempts and adjustments, I devised a method that correctly computed the TF-IDF scores for each word, ensuring the results were consistent with theoretical expectations. Testing the final implementation on my sample set of reviews helped me validate that the function worked as intended, which was a massive relief after the time invested.
 
 ### Resources
 
@@ -220,7 +224,7 @@ where 𝑁 is the total number of reviews, and df(𝑡) is the number of reviews
 
 **Total Points: 100**
 
-*Note:* The extra credit for stemming and lemmatization can add an additional **5 points**, potentially bringing the total to **95 points**. However, the base rubric sums up to **90 points**.
+*Note:* The extra credit for stemming and lemmatization can add an additional **5 points**, potentially bringing the total to **105 points**. However, the base rubric sums up to **100 points**.
 
 
 ## Tips On How To Excel
