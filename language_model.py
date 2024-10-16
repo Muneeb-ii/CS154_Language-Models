@@ -120,7 +120,7 @@ def calculate_tf_idf(term_frequencies: list[dict], vocabulary: set[str]) -> list
             i: int = 0
             while i < len(term_frequencies):
                 if each_word in term_frequencies[i]:
-                    dft += 1
+                    dft = dft + term_frequencies[i].get(each_word)
                     i += 1
                 else:
                     i += 1
