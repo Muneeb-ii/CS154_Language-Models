@@ -5,7 +5,7 @@ import math
 wnl = WordNetLemmatizer()
 
 list_of_stop_words: str = get_file_contents("list_of_stop_words.txt")
-characters_to_remove = ["!", ",", ".", "?", ":", ";", "-", "_"]
+characters_to_remove: list[str]= ["!", ",", ".", "?", ":", ";", "-", "_"]
 translation_table = str.maketrans("", "", "".join(characters_to_remove))
 
 
