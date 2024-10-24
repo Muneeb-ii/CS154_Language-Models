@@ -239,3 +239,11 @@ where 𝑁 is the total number of reviews, and df(𝑡) is the number of reviews
 * Run your code multiple times and vary the inputs to ensure it works as intended. 
 
 ## Feedback
+
+* [10] Code Quality and Documentation
+* [10] Version Control Practice
+* [35] Text Preprocessing (String Operations) + Extra Credit
+* [20] Term Frequency Calculations (Math Operations)
+* [30] TF-IDF Calculations
+- Project 4a: 105 points
+- Feedback: Splendid work with this project! Nice implementation of lemmatization!
