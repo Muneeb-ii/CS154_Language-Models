@@ -19,7 +19,6 @@ The most challenging and time-consuming function to implement was the one respon
 3. https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 4. https://www.w3schools.com/python/ref_dictionary_get.asp
 
-### *DO NOT EDIT BELOW THIS LINE*
 ---
 
 ## Goal
